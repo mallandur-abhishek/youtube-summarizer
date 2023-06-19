@@ -1,0 +1,16 @@
+body {
+    width: 300;
+}
+.box{
+    display: flex;
+    width: 300;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#slider{
+
+}
+
+button{
+}
