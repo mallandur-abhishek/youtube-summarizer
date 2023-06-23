@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="style" src="./popup.css" />
+    <link rel="stylesheet" href="popup.css">
 </head>
 <body>
 	<div class="box">
-		<H2 style="text-align: center">Drag left to decrease summary size, right to increase</H2>
-		<input id="slider" type="range" min="5" max="50" value="10"> <br />
-		<button id="summaryButton">Get Summary</button>
-		<script src="popup.js">
-		</script>
+		<H2 style="text-align: center">Drag to decrease/increase summary size</H2>
+		<input id="slider" type="range" name="range" min="0" value="40" max="100" />
+		<button id="summaryButton" class="summaryButton button--wide button--primary button--loader">Summarize</button>
 		<h4 id="messages"></h4>
-</div>
+	</div>
+	<script src="popup.js"></script>
 </body>
 </html>
