@@ -1,3 +1,8 @@
+const minSliderValue = 30;
+const summaryButton = document.getElementById("summaryButton");
+const slider = document.getElementById("slider");
+const events = ['change', 'input'];
+
 const summarize = async (videoId = '') => {
 	const percentLengthOfSummary = document.getElementById("slider").value / 100;
 	let summary = await fetch(`http://127.0.0.1:5000/?video_id=${videoId}&percent=${percentLengthOfSummary}`,{
@@ -5,7 +10,7 @@ const summarize = async (videoId = '') => {
 	}).catch((error) => {
 	document.getElementById('messages').innerHTML=error;
 	});
-	let summary_json= await summary.json();
+	let summary_json = await summary.json();
 	if ("error" in summary_json)
 		document.getElementById('messages').innerHTML="Error, no transcript found";
 	else {
@@ -16,17 +21,26 @@ const summarize = async (videoId = '') => {
         });
     }
 	}
-const summaryButton= document.getElementById("summaryButton");
-summaryButton.onclick=function(element){
+
+summaryButton.onclick = function(){
 	chrome.tabs.getSelected(null,function(tab) {
 		let url = tab.url;
-		if (url.indexOf("youtube.com/watch")!=-1){
-			videoId=url.split("?v=")[1].substring(0,11);
-			document.getElementById('messages').innerHTML="Loading summary...";
+		if (url.indexOf("youtube.com/watch") != -1) {
+			videoId = url.split("?v=")[1].substring(0, 11);
+			document.getElementById('messages').innerHTML = "Loading summary...";
 			summarize(videoId);
 		}
 		else{
-			document.getElementById('messages').innerHTML="No youtube video found";
+			document.getElementById('messages').innerHTML = "No youtube video found";
 		}
 	});
 }
+
+events.forEach(evt => {
+	slider.addEventListener(evt, function() {
+		const currValue = this.value;
+		if (currValue <= minSliderValue) {
+			this.value = minSliderValue;
+		}
+	})
+});
