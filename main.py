@@ -65,10 +65,7 @@ class YoutubeSummarizer:
         if not api_content:
             return DEFAULT_ERRORS['NO_TRANSCRIPT_FOUND']
         return {
-            "result": api_content,
-            "all": self.transcript_with_sentences,
-            "youtube": self.transcript,
-            "sentences": num_sentences
+            "result": api_content
         }
 
 
